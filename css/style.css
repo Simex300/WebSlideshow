@@ -1,0 +1,188 @@
+:root {
+    font-size: 62.5%;
+}
+
+body {
+    overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}   
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+/* Class Code */
+
+.frame {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.frame > * {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.backframe {
+    grid-row: 1/-1;
+    grid-column: 1/-1;
+
+    background-image: url("https://i.redd.it/ofer0dtqion71.jpg"); /* this will change dynamically with JS */
+    background-repeat: repeat-x;
+    background-size: contain;
+    filter: blur(20px);
+    
+    z-index: -1;
+}
+
+.img-frame {
+    grid-row: 1/-1;
+    grid-column: 1/-1;
+
+    margin: auto;
+
+}
+
+.img-frame > img {
+    max-width: auto;
+    max-height: 100vh;
+
+    object-fit: contain;
+}
+
+.control-frame {
+    grid-row: 1/-1;
+    grid-column: 1/-1;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 6rem 1fr;
+
+    z-index: 1;
+}
+
+.header-control {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(15,15,15,1);
+    font-size: 2.4rem;
+    color: #eee;
+
+    z-index: 2;
+
+    transform: translateY(-6rem);
+    transition: all 0.3s;
+}
+
+.header-control.active {
+    transform: translateY(0);
+}
+
+.main-buttons {
+    grid-column: 2/3;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 100%;
+    height: 100%;
+}
+
+.end-buttons {
+    grid-column: 3/4;
+    justify-self: end;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 6rem;
+    height: 100%;
+
+    cursor: pointer;
+}
+
+.button:hover {
+    color: #fff;
+    box-shadow: inset 0px 0px 5px #fff;
+}
+
+.side-control {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 7rem 1fr 7rem;
+    align-items: center;
+    justify-items: center;
+
+    position: absolute;
+
+    height: 100vh;
+    width: 100vw;
+
+    font-size: 4rem;
+    color: #eee;
+}
+
+.left-side, .right-side {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.left-side:hover, .right-side:hover {
+    opacity: 1;
+}
+
+.left-side {
+    grid-row: 1/-1;
+    grid-column: 1/2;
+
+    background: linear-gradient(90deg, rgba(15,15,15,.5) 70%, rgba(15,15,15,0) 100%);
+}
+
+.right-side {
+    grid-row: 1/-1;
+    grid-column: 3/4; 
+
+    background: linear-gradient(calc(90deg * 3), rgba(15,15,15,.5) 70%, rgba(15,15,15,0) 100%);
+}
+
+.backframe {
+    grid-row: 1/-1;
+    grid-column: 1/-1;
+
+    width: 100vw;
+    height: 100vh;
+
+    /* Testing purposes */
+    background-color: rgba(255,0,0,.3);
+}
