@@ -52,10 +52,19 @@ function zoomImage() {
 }
 
 function translateImage(e) {
-    if(img.offsetWidth * currScale > window.innerWidth)
-        mouseMovement.x = e.offsetX - mouseMovement.initialX;
-    if(img.offsetHeight * currScale > window.innerHeight)
-        mouseMovement.y = e.offsetY - mouseMovement.initialY;
+    const isHorizontal = rotationTime % 2 != 0;
+    if(isHorizontal) {
+        if(img.offsetWidth * currScale > window.innerHeight)
+            mouseMovement.y = e.offsetY - mouseMovement.initialY;
+        if(img.offsetHeight * currScale > window.innerWidth)
+            mouseMovement.x = e.offsetX - mouseMovement.initialX;    
+    }
+    else {
+        if(img.offsetWidth * currScale > window.innerWidth)
+            mouseMovement.x = e.offsetX - mouseMovement.initialX;
+        if(img.offsetHeight * currScale > window.innerHeight)
+            mouseMovement.y = e.offsetY - mouseMovement.initialY;
+    }
     movementEventExecution++;
 
     if (movementEventExecution > 40 && (mouseMovement.x != 0 || mouseMovement.y != 0)) {
@@ -123,10 +132,7 @@ document.querySelector("#zoom-out").addEventListener("click", e => {
 
 document.querySelector("#rotate").addEventListener("click", e => {
     rotationTime++;
-    let rotation = 90 * rotationTime
-    if(rotation >= 360){
-        rotationTime = 0;
-    }
+    let rotation = 90 * rotationTime;
 
     let existingTransform = transforms.find(el => el.includes("rotate"));
     let newTransform = `rotate(${rotation}deg)`;
