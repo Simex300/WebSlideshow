@@ -23,7 +23,6 @@ h1, h2, h3 {
 }
 
 /* Class Code */
-
 .frame {
     display: grid;
     grid-template-rows: 1fr;
@@ -54,8 +53,10 @@ h1, h2, h3 {
     grid-row: 1/-1;
     grid-column: 1/-1;
 
-    margin: auto;
+    max-width: 100vw;
+    max-height: 100vh;
 
+    margin: auto;
 }
 
 .img-frame > img {
@@ -63,6 +64,7 @@ h1, h2, h3 {
     max-height: 100vh;
 
     object-fit: contain;
+    transition: transform .3s;
 }
 
 .control-frame {
@@ -72,8 +74,6 @@ h1, h2, h3 {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 6rem 1fr;
-
-    z-index: 1;
 }
 
 .header-control {
