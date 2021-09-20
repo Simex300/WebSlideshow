@@ -1,5 +1,6 @@
 const headerControl = document.querySelector(".header-control");
 const img = document.querySelector(".img-frame > img");
+const body = document.querySelector("body");
 const maxZoom = 2;
 const minZoom = 1;
 const scaleRate = .25;
@@ -96,6 +97,30 @@ function resetTranslate() {
     img.style.transform = transforms.join(" ");
 }
 
+function toggleFullscreen() {
+    if (document.fullscreenElement !== null) {
+        console.log("Here")
+        document.exitFullscreen().then(() => {
+            // Turn off slideshow
+        })
+    }
+    else {
+        body.requestFullscreen().then(() => {
+            // Turn on slideshow
+        })
+    }
+}
+
+function togglePrint() {
+    const imgFrame = img.parentElement;
+    if(!imgFrame.classList.contains("print")) {
+        imgFrame.classList.add("print");
+    }
+    else {
+        imgFrame.classList.remove("print");
+    }
+}
+
 // Events
 document.querySelector(".control-frame").addEventListener('mousemove', e => {
     e.stopPropagation();
@@ -105,8 +130,8 @@ document.querySelector(".control-frame").addEventListener('mousemove', e => {
 })
 
 document.querySelector(".control-frame").addEventListener("mousedown", e => {
-    mouseMovement.initialX = e.offsetX - mouseMovement.x
-    mouseMovement.initialY = e.offsetY - mouseMovement.y
+    mouseMovement.initialX = e.offsetX - mouseMovement.x;
+    mouseMovement.initialY = e.offsetY - mouseMovement.y;
     isMoving = true;
 })
 
@@ -147,3 +172,16 @@ document.querySelector("#rotate").addEventListener("click", e => {
 
     img.style.transform = transforms.join(" ");
 })
+
+document.querySelector("#slideshow").addEventListener("click", e => {
+    toggleFullscreen();
+})
+
+document.querySelector("#print").addEventListener("click", e => {
+    togglePrint();
+    window.print();
+})
+
+// Window Stuff
+
+window.onafterprint = togglePrint;
