@@ -13,6 +13,24 @@ var movementEventExecution = 0;
 var mouseMovement = {"initialX": 0, "initialY": 0, "x": 0, "y": 0};
 var rotationTime = 0;
 
+// Img Changes
+const imgList = [
+    "https://i.redd.it/1uugn0orwvn71.png",
+    "https://preview.redd.it/t05f1pwxnqn71.jpg?width=2250&format=pjpg&auto=webp&s=16580db26b3b6f83a4c6bb82f9e348da8fdf81c0",
+    "https://preview.redd.it/xb0p0r26oqn71.jpg?width=2250&format=pjpg&auto=webp&s=0857950f466c777818a2d59638ecd2d75cf5d8ba",
+    "https://preview.redd.it/9j3t5xl6oqn71.jpg?width=2250&format=pjpg&auto=webp&s=b3e7d262d20ce79c2c38ab986c6608a038a7c9bb",
+    "https://preview.redd.it/t40ac2wt0xn71.jpg?width=2250&format=pjpg&auto=webp&s=8b8f3637b011d3c4884ee5be8e1e1f3132ba571a",
+    "https://preview.redd.it/cdea44wt0xn71.jpg?width=2250&format=pjpg&auto=webp&s=d4220e0b40f1e3dc5b5a18afbce3c8aaa02bd479",
+    "https://preview.redd.it/13smf5wt0xn71.jpg?width=2250&format=pjpg&auto=webp&s=e95e6e6b31696a17d9ab72ba002b9c33275c6302",
+    "https://preview.redd.it/bg56p7wt0xn71.jpg?width=2250&format=pjpg&auto=webp&s=30a55ac96147d8a53adcd8466127218ca0e250ae",
+    "https://i.redd.it/ofer0dtqion71.jpg"
+];
+var currImg = 0;
+
+// Slideshow
+var isSlideshow = false;
+var slideshowInterval;
+
 // Functions
 function checkScale() {
     if(currScale > maxZoom)
@@ -33,7 +51,7 @@ function resetImageMovement(fullReset = false) {
 }
 
 function toggleHeader(e) {
-    if(e.offsetY <= headerControl.clientHeight + 10)
+    if(e.y <= headerControl.clientHeight + 10)
         headerControl.classList.add("active");
     else 
         headerControl.classList.remove("active");
@@ -99,16 +117,21 @@ function resetTranslate() {
 
 function toggleFullscreen() {
     if (document.fullscreenElement !== null) {
-        console.log("Here")
-        document.exitFullscreen().then(() => {
-            // Turn off slideshow
-        })
+        document.exitFullscreen()
+        isSlideshow = false;
+        clearInterval(slideshowInterval);
     }
     else {
         body.requestFullscreen().then(() => {
             // Turn on slideshow
+            isSlideshow = true;
+            slideshowInterval = slideshow();
         })
     }
+}
+
+function slideshow() {
+    return setInterval(nextImage, 1000 * 3)
 }
 
 function togglePrint() {
@@ -121,7 +144,48 @@ function togglePrint() {
     }
 }
 
+function loadBackground() {
+    const src = img.src;
+    const backframe = document.querySelector(".backframe");
+    backframe.style.backgroundImage = `url('${src}')`;
+}
+
+function loadImage() {
+    img.src = imgList[currImg];
+    loadBackground();
+}
+
+function previousImage() {
+    currImg--;
+    if(currImg < 0) {
+        currImg = 0;
+    }
+    else {
+        loadImage();
+    }
+}
+
+function nextImage() {
+    currImg++;
+    if(currImg > imgList.length - 1) {
+        if(isSlideshow) {
+            currImg = 0;
+            loadImage();
+        }
+        else {
+            currImg = imgList.length - 1;
+        }
+    }
+    else {
+        loadImage();
+    }
+}
+
 // Events
+window.addEventListener("load", e => {
+    loadImage();
+});
+
 document.querySelector(".control-frame").addEventListener('mousemove', e => {
     e.stopPropagation();
     toggleHeader(e);
@@ -182,6 +246,13 @@ document.querySelector("#print").addEventListener("click", e => {
     window.print();
 })
 
-// Window Stuff
+document.querySelector(".left-side").addEventListener("click", e => {
+    previousImage();
+})
 
+document.querySelector(".right-side").addEventListener("click", e => {
+    nextImage();
+})
+
+// Window Stuff
 window.onafterprint = togglePrint;

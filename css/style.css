@@ -41,7 +41,10 @@ h1, h2, h3 {
     grid-row: 1/-1;
     grid-column: 1/-1;
 
-    background-image: url("https://i.redd.it/ofer0dtqion71.jpg"); /* this will change dynamically with JS */
+    width: 100vw;
+    height: 100vh;
+
+    /* background-image: url("https://i.redd.it/ofer0dtqion71.jpg"); */
     background-repeat: repeat-x;
     background-size: contain;
     filter: blur(20px);
@@ -174,17 +177,6 @@ h1, h2, h3 {
     grid-column: 3/4; 
 
     background: linear-gradient(calc(90deg * 3), rgba(15,15,15,.5) 70%, rgba(15,15,15,0) 100%);
-}
-
-.backframe {
-    grid-row: 1/-1;
-    grid-column: 1/-1;
-
-    width: 100vw;
-    height: 100vh;
-
-    /* Testing purposes */
-    background-color: rgba(255,0,0,.3);
 }
 
 @media print {
