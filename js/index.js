@@ -125,23 +125,18 @@ function resetTranslate() {
     img.style.transform = transforms.join(" ");
 }
 
-function toggleFullscreen() {
+function toggleFullscreen(e) {
     if (document.fullscreenElement !== null) {
-        document.exitFullscreen()
-        isSlideshow = false;
-        clearInterval(slideshowInterval);
+        if(document.exitFullscreen)
+            document.exitFullscreen()
     }
     else {
-        body.requestFullscreen().then(() => {
-            // Turn on slideshow
-            isSlideshow = true;
-            slideshowInterval = slideshow();
-        })
+        body.requestFullscreen();
     }
 }
 
 function slideshow() {
-    return setInterval(nextImage, 1000 * 3)
+    return setInterval(nextImage, 1000 * options["imageDuration"])
 }
 
 function togglePrint() {
@@ -212,10 +207,23 @@ function changeOption(e) {
     }
 }
 
+function handleFullscreen(e) { 
+    if (document.fullscreenElement !== null) {
+        isSlideshow = true;
+        slideshowInterval = slideshow();
+    }
+    else {
+        isSlideshow = false;
+        clearInterval(slideshowInterval);
+    }
+}
+
 // Events
 window.addEventListener("load", e => {
     loadImage();
 });
+
+document.addEventListener("fullscreenchange", handleFullscreen);
 
 document.querySelector(".control-frame").addEventListener('mousemove', e => {
     e.stopPropagation();
@@ -269,7 +277,7 @@ document.querySelector("#rotate").addEventListener("click", e => {
 })
 
 document.querySelector("#slideshow").addEventListener("click", e => {
-    toggleFullscreen();
+    toggleFullscreen(e);
 })
 
 document.querySelector("#print").addEventListener("click", e => {
@@ -282,21 +290,22 @@ document.querySelector("#configuration").addEventListener("click", e => {
 })
 
 document.querySelector(".left-side").addEventListener("click", e => {
-    previousImage();
+    if (document.fullscreenElement == null)
+        previousImage();
 })
 
 document.querySelector(".right-side").addEventListener("click", e => {
-    nextImage();
+    if (document.fullscreenElement == null)
+        nextImage();
 })
 
 document.querySelector(".option-modal").addEventListener("click", e => {
     e.stopPropagation();
     if(e.target.classList.contains("option-modal"))
         toggleModal();
-}, useCapture = true)
+})
 
 document.querySelector("#modal-close").addEventListener("click", e => {
-    e.stopPropagation();
     toggleModal();
 })
 

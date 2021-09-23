@@ -148,6 +148,10 @@ h1, h2, h3 {
     color: #eee;
 }
 
+body:fullscreen .side-control {
+    opacity: 0;
+}
+
 .left-side, .right-side {
     display: grid;
     justify-items: center;
