@@ -197,13 +197,25 @@ function toggleModal() {
 }
 
 function changeOption(e) {
-    if(e.target.type == "checkbox")
+    if(e.target.type == "checkbox"){
         options[e.target.name] = !options[e.target.name];
+        if (e.target.name == "darkmode")
+            toggleDarkmode();
+    }
     else {
         if (typeof options[e.target.name] == "number")
             options[e.target.name] = parseInt(e.target.value);
         else 
             options[e.target.name] = e.target.value;
+    }
+}
+
+function toggleDarkmode() {
+    if (options["darkmode"]) {
+        body.classList.add("dark")
+    }
+    else {
+        body.classList.remove("dark")
     }
 }
 
