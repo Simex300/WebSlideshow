@@ -61,7 +61,7 @@
                             <div class="input-group">
                                 <label class="checkbox-label">
                                     Dark Mode
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="darkmode">
                                     <span class="checkbox">
                                         <i class="fas fa-check"></i>
                                     </span>
@@ -101,9 +101,24 @@
                         <div class="option-group">
                             <h3>Slideshow</h3>
                             <div class="input-group">
+                                <div class="input-select">
+                                    <label class="checkbox-label">Image Duration (Seconds)</label>
+                                    <div class="select-container">
+                                        <select class="select" name="imageDuration" id="">
+                                            <option value="3">3</option>
+                                            <option value="5">5</option>
+                                            <option value="15">15</option>
+                                            <option value="30">30</option>
+                                            <option value="60">60</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group">
                                 <label class="checkbox-label">
                                     Allow Video/GIF
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="allowGif">
                                     <span class="checkbox">
                                         <i class="fas fa-check"></i>
                                     </span>
@@ -113,7 +128,7 @@
                                 <div class="input-select">
                                     <label class="checkbox-label">GIF Duration (Seconds)</label>
                                     <div class="select-container">
-                                        <select class="select" name="" id="">
+                                        <select class="select" name="gifDuration" id="">
                                             <option value="3">3</option>
                                             <option value="5">5</option>
                                             <option value="15">15</option>
@@ -127,7 +142,7 @@
                             <div class="input-group">
                                 <label class="checkbox-label">
                                     Video Repeat
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="videoRepeat">
                                     <span class="checkbox">
                                         <i class="fas fa-check"></i>
                                     </span>
@@ -137,8 +152,7 @@
                                 <div class="input-select">
                                     <label class="checkbox-label">Video Repeat (Times)</label>
                                     <div class="select-container">
-                                        <select class="select" name="" id="">
-                                            <option value="0">0</option>
+                                        <select class="select" name="repeatTimes" id="">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>

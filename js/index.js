@@ -13,6 +13,16 @@ var movementEventExecution = 0;
 var mouseMovement = {"initialX": 0, "initialY": 0, "x": 0, "y": 0};
 var rotationTime = 0;
 
+// Settings option 
+const options = {
+    "darkmode": false,
+    "imageDuration": 3,
+    "allowGif": false,
+    "gifDuration": 3,
+    "videoRepeat": false,
+    "repeatTimes": 1
+}
+
 // Img Changes
 const imgList = [
     "https://i.redd.it/1uugn0orwvn71.png",
@@ -191,6 +201,17 @@ function toggleModal() {
     }
 }
 
+function changeOption(e) {
+    if(e.target.type == "checkbox")
+        options[e.target.name] = !options[e.target.name];
+    else {
+        if (typeof options[e.target.name] == "number")
+            options[e.target.name] = parseInt(e.target.value);
+        else 
+            options[e.target.name] = e.target.value;
+    }
+}
+
 // Events
 window.addEventListener("load", e => {
     loadImage();
@@ -268,14 +289,19 @@ document.querySelector(".right-side").addEventListener("click", e => {
     nextImage();
 })
 
-// Modal
 document.querySelector(".option-modal").addEventListener("click", e => {
-    toggleModal();
-})
+    e.stopPropagation();
+    if(e.target.classList.contains("option-modal"))
+        toggleModal();
+}, useCapture = true)
 
 document.querySelector("#modal-close").addEventListener("click", e => {
     e.stopPropagation();
     toggleModal();
+})
+
+document.querySelectorAll("input, select").forEach(el => {
+    el.addEventListener("change", changeOption);
 })
 
 // Window Stuff
