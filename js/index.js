@@ -181,6 +181,16 @@ function nextImage() {
     }
 }
 
+function toggleModal() {
+    const modal = document.querySelector(".option-modal");
+    if (!modal.classList.contains("active")){
+        modal.classList.add("active");
+    }
+    else {
+        modal.classList.remove("active");
+    }
+}
+
 // Events
 window.addEventListener("load", e => {
     loadImage();
@@ -246,12 +256,26 @@ document.querySelector("#print").addEventListener("click", e => {
     window.print();
 })
 
+document.querySelector("#configuration").addEventListener("click", e => {
+    toggleModal();
+})
+
 document.querySelector(".left-side").addEventListener("click", e => {
     previousImage();
 })
 
 document.querySelector(".right-side").addEventListener("click", e => {
     nextImage();
+})
+
+// Modal
+document.querySelector(".option-modal").addEventListener("click", e => {
+    toggleModal();
+})
+
+document.querySelector("#modal-close").addEventListener("click", e => {
+    e.stopPropagation();
+    toggleModal();
 })
 
 // Window Stuff

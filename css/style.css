@@ -14,7 +14,7 @@ body {
     box-sizing: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p, h1, h2, h3, h4, h5, h6, label {
     font-family: 'Roboto', sans-serif;
 }   
 
@@ -44,7 +44,6 @@ h1, h2, h3 {
     width: 100vw;
     height: 100vh;
 
-    /* background-image: url("https://i.redd.it/ofer0dtqion71.jpg"); */
     background-repeat: repeat-x;
     background-size: contain;
     filter: blur(20px);
@@ -178,6 +177,277 @@ h1, h2, h3 {
 
     background: linear-gradient(calc(90deg * 3), rgba(15,15,15,.5) 70%, rgba(15,15,15,0) 100%);
 }
+
+.option-modal {
+    display: none;
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(15,15,15,.5);
+    
+    backdrop-filter: blur(20px);
+    z-index: 10;
+}
+
+.option-modal.active {
+    display: block;
+}
+
+.modal-content {
+    display: grid;
+    grid-template-rows: 1fr 12fr;
+    grid-template-columns: 1fr;
+
+    width: 80%;
+    height: 100%;
+
+    margin: auto;
+    background-color: #eee;
+}
+
+.modal-header {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+    
+    width: 100%;
+    height: 100%;
+
+    font-size: 3.6rem;
+    color: #111;
+    background-color: rgba(15,15,15,.3);
+}
+
+.modal-title {
+    grid-column: 1/2;
+    justify-self: center;
+
+    font-size: 2.8rem;
+}
+
+.modal-button {
+    grid-column: 3/4;
+    justify-self: end;
+
+    display: flex;
+    align-items: center;
+
+    width: 6rem;
+    height: 100%;
+
+    cursor: pointer;
+}
+
+.modal-main {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 3fr;
+}
+
+.modal-side {
+    display: grid;
+    grid-template-rows: repeat(3, 5rem);
+    grid-template-columns: 1fr;
+
+    height: 100%;
+    width: 100%;
+    padding-top: 3rem;
+    border-top: .2rem solid #eee;
+
+    font-size: 2.8rem;
+    color: #111;
+    background-color: rgba(15,15,15,.3);
+}
+
+.modal-list {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    align-items: end;
+    justify-items: start;
+
+    padding-left: 3rem;
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: all .1s;
+}
+
+.modal-list:hover, .modal-list.active {
+    padding-left: 5rem;
+
+    color: #000;
+    border-bottom: 1px solid #fff;
+    box-shadow: inset 0 0 10px #fff;
+}
+
+.modal-options {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(13rem, 1fr));
+    grid-template-columns: 1fr;
+
+    justify-items: start;
+
+    overflow-y: scroll;
+}
+
+.option-group {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(8.5rem, 1fr));
+    grid-template-columns: 2rem 1fr;
+    row-gap: 1rem;
+    justify-items: start;
+
+    width: 100%;
+}
+
+.option-group > * {
+    grid-column: 2/3;
+}
+
+.option-group > h3 {
+    width: 100%;
+
+    align-self: center;
+
+    border-bottom: 1px solid #111;
+    font-size: 2.8rem;
+    text-align: start;
+}
+
+.input-group {
+    align-items: center;
+    justify-items: center;
+
+    width: 100%;
+    font-size: 2.2rem;
+
+}
+
+/* Input General */
+
+label {
+    width: 10rem;
+    text-align: start;
+}
+
+/* Input */
+.input-text, .input-select {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    column-gap: 3rem;
+
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.input-text > input {
+    max-width: 90%;
+
+    font-size: 2.4rem;
+    padding-left: 1rem;
+    padding-bottom: .4rem;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #111;
+}
+
+/* Select */
+.select-container {
+    max-width: 91%;
+    display: grid;
+    grid-template-areas: "select";
+}
+
+.select {
+    grid-area: select;
+
+    appearance: none;
+    
+    font-size: 2.4rem;
+    padding-left: 1rem;
+    padding-bottom: .4rem;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #111;
+}
+
+.select-container > i {
+    grid-area: select;
+    justify-self: end;
+    align-self: center;
+    padding-right: 1rem;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+    opacity: 0;
+}
+
+.checkbox-label {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: center;
+    justify-items: start;
+    column-gap: 3rem;
+
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.checkbox-label input[type="checkbox"] {
+    grid-column: 2/3;
+    grid-row: 1/-1;
+}
+
+.checkbox-label .checkbox {
+    grid-column: 2/3;
+    grid-row: 1/-1;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    height: 2.4rem;
+    width: 2.4rem;
+    font-size: 1.4rem;
+
+    color: #eee;
+    background-color: transparent;
+    border: 2px solid #111;
+    transition: all .1s;
+}
+
+.checkbox-label .checkbox i{
+    height: auto;
+    opacity: 0;
+    transition: all .1s;
+}
+
+.checkbox-label .checkbox:hover {
+    background-color: rgba(15,15,15,.1);
+}
+
+.checkbox-label input:checked ~ .checkbox {
+    background-color: #111;
+}
+
+.checkbox-label input:checked ~ .checkbox i {
+    opacity: 1;
+}
+
+
 
 @media print {
     .frame *:not(.print, .print *) {
